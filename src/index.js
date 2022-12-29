@@ -1,9 +1,6 @@
 // https://cloud.google.com/pubsub/docs/samples/pubsub-subscriber-async-pull?hl=ja
-const subscriptionNameOrId = process.env.SUBID;
+const subscriptionNameOrId = process.argv[2];
 const timeout = 120;
-
-const myId = process.argv[2];
-console.log(`subscribe: ${myId}`);
 
 // Imports the Google Cloud client library
 const { PubSub } = require("@google-cloud/pubsub");
@@ -21,16 +18,12 @@ function listenForMessages() {
   // Create an event handler to handle messages
   let messageCount = 0;
   const messageHandler = (message) => {
-    if (`${message.data}` === myId) {
-      console.log(`Received message ${message.id}:`);
-      console.log(`\tData: ${message.data}`);
-      console.log(`\tAttributes: ${message.attributes}`);
-      messageCount += 1;
-      // "Ack" (acknowledge receipt of) the message
-      message.ack();
-    } else {
-      console.log(`${myId}: skiped: ${message.data}`);
-    }
+    console.log(`Received message ${message.id}:`);
+    console.log(`\tData: ${message.data}`);
+    console.log(`\tAttributes: ${message.attributes}`);
+    messageCount += 1;
+    // "Ack" (acknowledge receipt of) the message
+    message.ack();
   };
 
   // Listen for new messages until timeout is hit
@@ -38,7 +31,7 @@ function listenForMessages() {
 
   setTimeout(() => {
     subscription.removeListener("message", messageHandler);
-    console.log(`${myId} : ${messageCount} message(s) received.`);
+    console.log(`${messageCount} message(s) received.`);
   }, timeout * 1000);
 }
 
