@@ -1,5 +1,7 @@
 # test-pubsub-pull
 
+詳細: [Cloud Pub/Sub で非同期 HTTP API 的なことをやってみる実験](https://zenn.dev/hankei6km/scraps/c4da53f3d75eab)
+
 ## 準備
 
 最初に 1 回実施。
@@ -12,7 +14,7 @@ $ export PROJID=<project id>
 $ export TOPID=<topic id>
 ```
 
-## 受信(待機)
+## 受信(作成と受信個別に実施)
 
 サブスクリプション id とフィルターに指定する `reqid` を指定する。
 
@@ -29,6 +31,14 @@ $ node src/index.js <subscription id>
 ```
 
 サブスクリプションはそのまま残るので必要がなければコンソールなどから削除。
+
+## 受信(スクリプト利用)
+
+上記をまとめて実行するスクリプトとして `scripts/wait.sh` が利用できる。
+
+```sh
+$ ./scripts/wait.sh <reqid>
+```
 
 ## パブリッシュ
 
