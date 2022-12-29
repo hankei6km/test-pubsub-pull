@@ -14,14 +14,15 @@ $ export TOPID=<topic id>
 
 ## 受信(待機)
 
-サブスクリプションとフィルターに指定する `reqid`。
-`reqid` が合致するメッセージのみ受信する。
+サブスクリプション id とフィルターに指定する `reqid` を指定する。
+
+作成されたサブスクリプションは `reqid` が合致するメッセージのみ受信する。
 
 ```sh
 $ node src/sub.js <subscription id> <reqid>
 ```
 
-受信する(120 秒間だけ稼働)。
+指定したサブスクリプションからメッセージを pull する(120 秒間だけ稼働)。
 
 ```sh
 $ node src/index.js <subscription id>
